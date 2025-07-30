@@ -163,9 +163,9 @@ echo "::debug::EXTRA_ARGS: ${EXTRA_ARGS[*]}"
 # Split multiple INPUT_FILE(s) using a colon separator and pass them to Docker as individual `-c` or `-f` arguments.
 
 if [[ "${INPUT_MODE}" == "swarm" ]];then
-    FILE_ARG_LETTER='f'
-else
     FILE_ARG_LETTER='c'
+else
+    FILE_ARG_LETTER='f'
 fi
 
 IFS=';' read -ra FILES <<< "${INPUT_FILE}"

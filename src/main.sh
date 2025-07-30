@@ -170,11 +170,11 @@ fi
 
 IFS=';' read -ra FILES <<< "${INPUT_FILE}"
 for file in "${FILES[@]}"; do
-  INPUT_FILE_ARGS+="-${FILE_ARG_LETTER} \"$file\" "
+  INPUT_FILE_ARGS+=("-${FILE_ARG_LETTER} \"$file\"")
 done
 
 # Trim trailing whitespace after last file argument.
-INPUT_FILE_ARGS=$(echo ${INPUT_FILE_ARGS} | xargs -0)
+# INPUT_FILE_ARGS=$(echo ${INPUT_FILE_ARGS} | xargs -0)
 
 ## Deploy Stack
 

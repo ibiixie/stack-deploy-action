@@ -180,10 +180,10 @@ INPUT_FILE_ARGS=$(echo ${INPUT_FILE_ARGS} | xargs -0)
 
 if [[ "${INPUT_MODE}" == "swarm" ]];then
     DEPLOY_TYPE="Swarm"
-    COMMAND=("docker" "stack" "deploy" "${INPUT_FILE_ARGS}" "${EXTRA_ARGS[@]}" "${INPUT_NAME}")
+    COMMAND=("docker" "stack" "deploy" "${INPUT_FILE_ARGS[@]}" "${EXTRA_ARGS[@]}" "${INPUT_NAME}")
 else
     DEPLOY_TYPE="Compose"
-    COMMAND=("docker" "compose" "${INPUT_FILE_ARGS}" "-p" "${INPUT_NAME}" "up" "-d" "-y" "${EXTRA_ARGS[@]}")
+    COMMAND=("docker" "compose" "${INPUT_FILE_ARGS[@]}" "-p" "${INPUT_NAME}" "up" "-d" "-y" "${EXTRA_ARGS[@]}")
 fi
 
 echo -e "::group::Deploying Docker ${DEPLOY_TYPE} Stack: \u001b[36;1m${INPUT_NAME}"

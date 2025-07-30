@@ -10,7 +10,7 @@ inputs:
     description: "Docker Stack Name"
     required: true
   file:
-    description: "Docker Compose File"
+    description: "Docker Compose File(s)"
     required: false
     default: "docker-compose.yaml"
   mode:

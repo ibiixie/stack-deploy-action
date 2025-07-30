@@ -159,14 +159,33 @@ else
 fi
 echo "::debug::EXTRA_ARGS: ${EXTRA_ARGS[*]}"
 
+
+# Split multiple INPUT_FILE(s) using a colon separator and pass them to Docker as individual `-c` or `-f` arguments.
+
+FILE_ARG_LETTER=()
+if [[ "${INPUT_MODE}" == "swarm" ]];then
+    FILE_ARG_LETTER='f'
+else
+    FILE_ARG_LETTER='c'
+fi
+
+INPUT_FILE_ARGS=""
+IFS=';' read -ra FILES <<< "${INPUT_FILE}"
+for file in "${FILES[@]}"; do
+  INPUT_FILE_ARGS+=" -${FILE_ARG_LETTER} \"$file\""
+done
+
+echo "$INPUT_FILE_ARGS"
+
+
 ## Deploy Stack
 
 if [[ "${INPUT_MODE}" == "swarm" ]];then
     DEPLOY_TYPE="Swarm"
-    COMMAND=("docker" "stack" "deploy" "-c" "${INPUT_FILE}" "${EXTRA_ARGS[@]}" "${INPUT_NAME}")
+    COMMAND=("docker" "stack" "deploy" "${INPUT_FILE_ARGS}" "${EXTRA_ARGS[@]}" "${INPUT_NAME}")
 else
     DEPLOY_TYPE="Compose"
-    COMMAND=("docker" "compose" "-f" "${INPUT_FILE}" "-p" "${INPUT_NAME}" "up" "-d" "-y" "${EXTRA_ARGS[@]}")
+    COMMAND=("docker" "compose" "${INPUT_FILE_ARGS}" "-p" "${INPUT_NAME}" "up" "-d" "-y" "${EXTRA_ARGS[@]}")
 fi
 
 echo -e "::group::Deploying Docker ${DEPLOY_TYPE} Stack: \u001b[36;1m${INPUT_NAME}"

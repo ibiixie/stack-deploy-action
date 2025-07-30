@@ -46,7 +46,7 @@ For more details see [action.yaml](action.yaml) and [src/main.sh](src/main.sh).
 | Input&nbsp;Name      | Is&nbsp;Required | Default&nbsp;Value                  | Input&nbsp;Description                    |
 | :------------------- | :--------------: | :---------------------------------- | :---------------------------------------- |
 | `name`               |     **Yes**      | -                                   | Docker Stack/Project Name \*              |
-| `file`               |        -         | `docker-compose.yaml`               | Docker Stack/Compose File                 |
+| `file`               |        -         | `docker-compose.yaml`               | Docker Stack/Compose File(s)              |
 | `mode`**¹**          |        -         | `swarm`                             | Deploy Mode: [`swarm`, `compose`] \*      |
 | `args`**¹**          |        -         | `--remove-orphans --force-recreate` | Additional Arguments for **Compose** \*   |
 | `host`               |     **Yes**      | -                                   | Remote Docker Hostname or IP \*           |

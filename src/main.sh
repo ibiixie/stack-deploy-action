@@ -162,21 +162,19 @@ echo "::debug::EXTRA_ARGS: ${EXTRA_ARGS[*]}"
 
 # Split multiple INPUT_FILE(s) using a colon separator and pass them to Docker as individual `-c` or `-f` arguments.
 
-FILE_ARG_LETTER=()
 if [[ "${INPUT_MODE}" == "swarm" ]];then
     FILE_ARG_LETTER='f'
 else
     FILE_ARG_LETTER='c'
 fi
 
-INPUT_FILE_ARGS=""
 IFS=';' read -ra FILES <<< "${INPUT_FILE}"
 for file in "${FILES[@]}"; do
-  INPUT_FILE_ARGS+=" -${FILE_ARG_LETTER} \"$file\""
+  INPUT_FILE_ARGS+="-${FILE_ARG_LETTER} \"$file\" "
 done
 
-echo "$INPUT_FILE_ARGS"
-
+# Trim trailing whitespace after last file argument.
+INPUT_FILE_ARGS = $(echo ${INPUT_FILE_ARGS} | xargs)
 
 ## Deploy Stack
 

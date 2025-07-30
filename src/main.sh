@@ -174,7 +174,7 @@ for file in "${FILES[@]}"; do
 done
 
 # Trim trailing whitespace after last file argument.
-INPUT_FILE_ARGS = $(echo ${INPUT_FILE_ARGS} | xargs)
+INPUT_FILE_ARGS=$(echo ${INPUT_FILE_ARGS} | xargs)
 
 ## Deploy Stack
 
